@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- Шапка -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_primary"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_medium"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Панель репетитора"
+            android:textSize="@dimen/text_size_title"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Вкладки -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btnTabResults"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📊 Результаты"
+            android:background="@color/green_light"
+            android:textColor="@color/green_dark"
+            android:textSize="@dimen/text_size_body"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small" />
+
+        <Button
+            android:id="@+id/btnTabQuestions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📝 Вопросы"
+            android:background="@color/white"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_body"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small" />
+
+    </LinearLayout>
+
+    <!-- ══════════════════ ВКЛАДКА РЕЗУЛЬТАТОВ ══════════════════ -->
+    <LinearLayout
+        android:id="@+id/layoutResultsTab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <!-- Строка поиска по коду + фильтр + экспорт -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:padding="@dimen/padding_medium">
+
+            <!-- Поиск по коду -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:hint="6-значный код ученика">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSearchCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:fontFamily="monospace"
+                        android:textSize="@dimen/text_size_medium" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnSearchCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:text="Найти"
+                    android:background="@drawable/button_primary"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    android:paddingStart="@dimen/padding_medium"
+                    android:paddingEnd="@dimen/padding_medium" />
+
+            </LinearLayout>
+
+            <!-- Фильтр по классу + счётчик + экспорт -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/padding_small">
+
+                <Spinner
+                    android:id="@+id/spinnerGrade"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnExportCsv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:text="📤 CSV"
+                    android:background="@drawable/bg_option_normal"
+                    android:textColor="@color/green_primary"
+                    android:textSize="@dimen/text_size_small"
+                    android:paddingStart="@dimen/padding_small"
+                    android:paddingEnd="@dimen/padding_small" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvResultCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Всего результатов: 0"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/text_secondary" />
+
+        </LinearLayout>
+
+        <!-- Пустой экран -->
+        <TextView
+            android:id="@+id/tvEmptyResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:text="Пока нет результатов.\nУченики ещё не проходили тесты."
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/text_hint"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <!-- Список результатов -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_small"
+            android:clipToPadding="false" />
+
+    </LinearLayout>
+
+    <!-- ══════════════════ ВКЛАДКА ВОПРОСОВ ══════════════════ -->
+    <ScrollView
+        android:id="@+id/layoutQuestionsTab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
+
+            <TextView
+                android:id="@+id/tvQuestionsCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Всего вопросов: 0"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvQuestionsSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="Загрузка…"
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="monospace" />
+
+            <Button
+                android:id="@+id/btnAddQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/padding_large"
+                android:text="+ Добавить новый вопрос"
+                android:background="@drawable/button_primary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_large"
+                android:text="ℹ️ Как обновить вопросы без переустановки:"
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/green_dark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="1. Нажмите «+ Добавить новый вопрос»\n2. Заполните поля: раздел, текст вопроса, 4 варианта ответа, класс и уровень\n3. Нажмите «Сохранить» — вопрос сразу добавится в базу\n\nВопрос появится в тестах для выбранного класса при следующем прохождении."
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/text_secondary"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

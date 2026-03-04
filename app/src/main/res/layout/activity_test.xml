@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- ══════════════════ ЭКРАН ЗАГРУЗКИ ══════════════════ -->
+    <LinearLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ProgressBar
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:indeterminateTint="@color/green_primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="Загрузка вопросов…"
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/text_secondary" />
+
+    </LinearLayout>
+
+    <!-- ══════════════════ ОСНОВНОЙ ЭКРАН ТЕСТА ══════════════════ -->
+    <ScrollView
+        android:id="@+id/layoutTest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
+
+            <!-- ── ШАПКА: класс + общий таймер теста ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@color/green_primary"
+                android:padding="@dimen/padding_medium">
+
+                <TextView
+                    android:id="@+id/tvGradeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="9 класс"
+                    android:textSize="@dimen/text_size_large"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTestTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Тест: 30:00"
+                    android:textSize="@dimen/text_size_body"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+            </LinearLayout>
+
+            <!-- ── ПРОГРЕСС ВОПРОСОВ ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/padding_small">
+
+                <TextView
+                    android:id="@+id/tvProgress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Вопрос 1 из 15"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvDifficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="★★☆ Базовый"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary" />
+
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressQuestions"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/progress_height"
+                android:layout_marginTop="4dp"
+                app:indicatorColor="@color/green_primary"
+                app:trackColor="@color/divider"
+                app:trackCornerRadius="4dp" />
+
+            <!-- ── ТАЙМЕР ВОПРОСА ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/padding_small">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏱ На вопрос: "
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressQuestionTimer"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/progress_height"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_marginEnd="@dimen/padding_small"
+                    app:indicatorColor="@color/green_primary"
+                    app:trackColor="@color/divider"
+                    app:trackCornerRadius="4dp" />
+
+                <TextView
+                    android:id="@+id/tvQuestionTimer"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="60 с"
+                    android:textSize="@dimen/text_size_body"
+                    android:textColor="@color/green_primary"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:gravity="end" />
+
+            </LinearLayout>
+
+            <!-- ── КАРТОЧКА ВОПРОСА ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium"
+                android:elevation="@dimen/card_elevation">
+
+                <TextView
+                    android:id="@+id/tvTopic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Механика"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/green_medium"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/tvQuestionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="Текст вопроса…"
+                    android:textSize="@dimen/text_size_large"
+                    android:textColor="@color/text_primary"
+                    android:lineSpacingExtra="4dp" />
+
+            </LinearLayout>
+
+            <!-- ── ВАРИАНТЫ ОТВЕТОВ ── -->
+            <Button
+                android:id="@+id/btnOptionA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:text="А.  Вариант А"
+                android:background="@drawable/bg_option_normal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body"
+                android:textAlignment="textStart"
+                android:gravity="start|center_vertical"
+                android:minHeight="56dp"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="@dimen/padding_medium" />
+
+            <Button
+                android:id="@+id/btnOptionB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="Б.  Вариант Б"
+                android:background="@drawable/bg_option_normal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body"
+                android:textAlignment="textStart"
+                android:gravity="start|center_vertical"
+                android:minHeight="56dp"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="@dimen/padding_medium" />
+
+            <Button
+                android:id="@+id/btnOptionC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="В.  Вариант В"
+                android:background="@drawable/bg_option_normal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body"
+                android:textAlignment="textStart"
+                android:gravity="start|center_vertical"
+                android:minHeight="56dp"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="@dimen/padding_medium" />
+
+            <Button
+                android:id="@+id/btnOptionD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="Г.  Вариант Г"
+                android:background="@drawable/bg_option_normal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body"
+                android:textAlignment="textStart"
+                android:gravity="start|center_vertical"
+                android:minHeight="56dp"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="@dimen/padding_medium" />
+
+            <!-- ── КНОПКА СЛЕДУЮЩЕГО ВОПРОСА ── -->
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginBottom="@dimen/padding_large"
+                android:text="Следующий вопрос"
+                android:background="@drawable/button_primary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

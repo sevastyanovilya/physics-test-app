@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Пути к файлам, которые можно передавать через FileProvider.
+    Используется для экспорта CSV-файлов результатов через системный шаринг.
+
+    files-path → context.filesDir (внутреннее хранилище, не требует разрешений)
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path
+        name="exports"
+        path="exports/" />
+</paths>

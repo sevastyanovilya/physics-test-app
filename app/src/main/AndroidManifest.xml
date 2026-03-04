@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Разрешение для записи экспортируемых файлов на внешнее хранилище (API < 29) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:name=".PhysicsApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PhysicsTest"
+        android:usesCleartextTraffic="false">
+
+        <!-- Заставочный экран — первый при запуске -->
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PhysicsTest.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Экран авторизации ученика (PIN или UUID) -->
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="false" />
+
+        <!-- Выбор класса (7–11) -->
+        <activity
+            android:name=".ui.grade.GradeSelectActivity"
+            android:exported="false" />
+
+        <!-- Прохождение теста с таймерами -->
+        <activity
+            android:name=".ui.test.TestActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Экран результатов для ученика -->
+        <activity
+            android:name=".ui.result.ResultActivity"
+            android:exported="false" />
+
+        <!-- Вход в режим репетитора -->
+        <activity
+            android:name=".ui.tutor.TutorLoginActivity"
+            android:exported="false" />
+
+        <!-- Панель управления репетитора -->
+        <activity
+            android:name=".ui.tutor.TutorDashboardActivity"
+            android:exported="false" />
+
+        <!-- Редактор вопросов -->
+        <activity
+            android:name=".ui.tutor.QuestionEditorActivity"
+            android:exported="false" />
+
+        <!-- Provider для экспорта файлов через FileProvider (Android 7+) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

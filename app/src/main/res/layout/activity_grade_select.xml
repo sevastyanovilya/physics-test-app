@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large"
+        android:gravity="center_horizontal">
+
+        <!-- Заголовок -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:text="Выберите ваш класс"
+            android:textSize="@dimen/text_size_headline"
+            android:textColor="@color/green_primary"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="Тест будет подобран по программе вашего класса"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_secondary"
+            android:gravity="center" />
+
+        <!-- Информация о тесте -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:background="@drawable/bg_card"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_medium"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="📝\n15 вопросов"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/text_secondary" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="⏱\n30 минут"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/text_secondary" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="🏆\n3 уровня"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/text_secondary" />
+
+        </LinearLayout>
+
+        <!-- Кнопки классов -->
+        <Button
+            android:id="@+id/btnGrade7"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="7 класс"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGrade8"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="8 класс"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGrade9"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="9 класс"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGrade10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="10 класс"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGrade11"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="11 класс"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

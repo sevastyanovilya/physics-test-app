@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Drawable-селектор для основных зелёных кнопок.
+
+    Три состояния:
+      disabled → серый фон #BDBDBD
+      pressed  → тёмно-зелёный фон #1B5E20 (визуальный отклик на нажатие)
+      normal   → зелёный фон #2E7D32 (стандартное состояние)
+
+    Все hex-коды явно прописаны здесь — не в коде и не в атрибутах стилей.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Кнопка недоступна (disabled) -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#BDBDBD" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Кнопка нажата (pressed) -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#1B5E20" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Кнопка сфокусирована (focused) -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#388E3C" />
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color="#1B5E20" />
+        </shape>
+    </item>
+
+    <!-- Нормальное состояние -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#2E7D32" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</selector>

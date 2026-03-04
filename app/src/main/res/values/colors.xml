@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ══════════════════════════════════════════════════════════
+         ОСНОВНАЯ ПАЛИТРА (зелёный + белый дизайн)
+         ══════════════════════════════════════════════════════════ -->
+
+    <!-- Основной зелёный — кнопки, акценты, заголовки -->
+    <color name="green_primary">#2E7D32</color>
+    <!-- Светлый зелёный — фон карточек, подложки -->
+    <color name="green_light">#E8F5E9</color>
+    <!-- Тёмный зелёный — нажатое состояние кнопок -->
+    <color name="green_dark">#1B5E20</color>
+    <!-- Средне-зелёный — дополнительные акценты -->
+    <color name="green_medium">#388E3C</color>
+
+    <!-- Фоны -->
+    <color name="white">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
+
+    <!-- Серые оттенки — вспомогательные элементы -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="divider">#E0E0E0</color>
+
+    <!-- Состояние disabled для кнопок -->
+    <color name="button_disabled_bg">#BDBDBD</color>
+    <color name="button_disabled_text">#9E9E9E</color>
+
+    <!-- Статусные цвета -->
+    <color name="error_red">#D32F2F</color>
+    <color name="warning_orange">#F57F17</color>
+    <color name="info_blue">#1565C0</color>
+
+    <!-- Уровни знаний -->
+    <color name="level_beginner">#FF8F00</color>
+    <color name="level_basic">#1976D2</color>
+    <color name="level_advanced">#2E7D32</color>
+
+    <!-- Primary для Material Theme -->
+    <color name="colorPrimary">#2E7D32</color>
+    <color name="colorPrimaryDark">#1B5E20</color>
+    <color name="colorAccent">#4CAF50</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimaryContainer">#E8F5E9</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#212121</color>
+
+    <!-- Таймер вопроса — прогресс-бар -->
+    <color name="timer_safe">#2E7D32</color>
+    <color name="timer_warning">#F57F17</color>
+    <color name="timer_danger">#D32F2F</color>
+
+    <!-- Фон выбранного варианта ответа -->
+    <color name="option_selected_bg">#2E7D32</color>
+    <color name="option_selected_text">#FFFFFF</color>
+    <color name="option_normal_bg">#FFFFFF</color>
+    <color name="option_normal_border">#E0E0E0</color>
+</resources>

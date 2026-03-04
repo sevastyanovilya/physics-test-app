@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:text="🔐"
+            android:textSize="56sp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="Режим репетитора"
+            android:textSize="@dimen/text_size_headline"
+            android:textColor="@color/green_primary"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="Введите пароль для доступа"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_secondary"
+            android:gravity="center" />
+
+        <!-- Поле ввода пароля -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Пароль репетитора">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:textSize="@dimen/text_size_medium" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Поле подтверждения пароля (только в режиме setup) -->
+        <LinearLayout
+            android:id="@+id/layoutConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Повторите пароль">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPasswordConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/text_size_medium" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Кнопка войти / создать пароль -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="Войти"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+        <!-- Кнопка назад (скрыта в режиме setup) -->
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="← Назад к ученику"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_body"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</ScrollView>

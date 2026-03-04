@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large">
+
+        <!-- Заголовок -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:text="Добро пожаловать!"
+            android:textSize="@dimen/text_size_headline"
+            android:textColor="@color/green_primary"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="Выберите способ входа для прохождения теста"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_secondary"
+            android:gravity="center" />
+
+        <!-- Карточка UUID -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium"
+            android:elevation="@dimen/card_elevation">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔑 Ваш код на этом устройстве:"
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/tvUuidValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Загрузка…"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/green_primary"
+                android:textStyle="bold"
+                android:fontFamily="monospace" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="Этот код автоматически назначен вашему устройству. Запомните его, чтобы репетитор мог найти ваши результаты."
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/text_secondary" />
+
+            <Button
+                android:id="@+id/btnLoginUuid"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:text="Войти без PIN"
+                android:background="@drawable/button_primary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Разделитель -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="— или —"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_hint"
+            android:gravity="center" />
+
+        <!-- Кнопка открытия ввода PIN -->
+        <Button
+            android:id="@+id/btnShowPinEntry"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="Войти по PIN-коду"
+            android:background="@drawable/bg_option_normal"
+            android:textColor="@color/green_primary"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+        <!-- Раскрывающийся блок ввода PIN (изначально скрыт) -->
+        <LinearLayout
+            android:id="@+id/layoutPinEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Введите 4-значный PIN">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberPassword"
+                    android:maxLength="4"
+                    android:fontFamily="monospace"
+                    android:textSize="@dimen/text_size_title"
+                    android:gravity="center"
+                    android:letterSpacing="0.5" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnLoginPin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/padding_small"
+                android:text="Подтвердить PIN"
+                android:background="@drawable/button_primary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Разделитель -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding_large"
+            android:background="@color/divider" />
+
+        <!-- Кнопка режима репетитора -->
+        <Button
+            android:id="@+id/btnTutorMode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_small"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="🔐 Режим репетитора"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_body" />
+
+    </LinearLayout>
+</ScrollView>

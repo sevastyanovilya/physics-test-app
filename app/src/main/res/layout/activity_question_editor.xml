@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_medium">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_medium"
+            android:text="Новый вопрос"
+            android:textSize="@dimen/text_size_title"
+            android:textColor="@color/green_primary"
+            android:textStyle="bold" />
+
+        <!-- Класс и уровень в одной строке -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="@dimen/padding_small">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Класс"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary" />
+
+                <Spinner
+                    android:id="@+id/spinnerGrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_option_normal"
+                    android:padding="@dimen/padding_small" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сложность"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/text_secondary" />
+
+                <Spinner
+                    android:id="@+id/spinnerDifficulty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_option_normal"
+                    android:padding="@dimen/padding_small" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Раздел физики -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Раздел (например: Механика, Оптика)">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textSize="@dimen/text_size_body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Текст вопроса -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Текст вопроса">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etQuestionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minLines="2"
+                android:textSize="@dimen/text_size_body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Варианты ответов -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="Варианты ответов:"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_secondary"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Вариант А">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etOptionA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textSize="@dimen/text_size_body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Вариант Б">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etOptionB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textSize="@dimen/text_size_body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Вариант В">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etOptionC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textSize="@dimen/text_size_body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Вариант Г">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etOptionD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textSize="@dimen/text_size_body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Правильный ответ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="Правильный ответ:"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_secondary"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerCorrectAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/bg_option_normal"
+            android:padding="@dimen/padding_small" />
+
+        <!-- Кнопки -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/padding_large"
+            android:text="💾 Сохранить вопрос"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:text="Отмена"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_body" />
+
+    </LinearLayout>
+</ScrollView>

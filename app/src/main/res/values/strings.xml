@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Физика: Тест</string>
+
+    <!-- Авторизация -->
+    <string name="auth_title">Вход в приложение</string>
+    <string name="auth_uuid_label">Ваш код (UUID):</string>
+    <string name="auth_btn_uuid">Войти без PIN</string>
+    <string name="auth_btn_show_pin">Войти по PIN</string>
+    <string name="auth_pin_hint">Введите 4-значный PIN</string>
+    <string name="auth_btn_login_pin">Подтвердить PIN</string>
+    <string name="auth_tutor_mode">Режим репетитора</string>
+
+    <!-- Выбор класса -->
+    <string name="grade_select_title">Выберите ваш класс</string>
+
+    <!-- Тест -->
+    <string name="test_loading">Загрузка вопросов…</string>
+    <string name="test_timer_label">Оставшееся время:</string>
+    <string name="test_question_timer">Время на вопрос:</string>
+    <string name="btn_next_question">Следующий вопрос</string>
+    <string name="btn_finish_test">Завершить тест</string>
+
+    <!-- Результаты -->
+    <string name="result_title">Результат теста</string>
+    <string name="result_score_label">Правильных ответов:</string>
+    <string name="result_level_label">Уровень знаний:</string>
+    <string name="result_code_label">Код для репетитора:</string>
+    <string name="result_qr_label">Покажите этот QR-код репетитору</string>
+    <string name="btn_new_test">Пройти ещё раз</string>
+
+    <!-- Режим репетитора -->
+    <string name="tutor_title">Режим репетитора</string>
+    <string name="tutor_results_tab">📊 Результаты</string>
+    <string name="tutor_questions_tab">📝 Вопросы</string>
+    <string name="tutor_search_hint">Введите 6-значный код</string>
+    <string name="tutor_btn_search">Найти</string>
+    <string name="tutor_btn_export">Экспорт CSV</string>
+    <string name="tutor_btn_add_question">+ Добавить вопрос</string>
+
+    <!-- Редактор вопросов -->
+    <string name="editor_title_add">Новый вопрос</string>
+    <string name="editor_title_edit">Редактировать вопрос</string>
+    <string name="editor_topic_hint">Раздел (например: Механика)</string>
+    <string name="editor_question_hint">Текст вопроса</string>
+    <string name="editor_option_a_hint">Вариант А</string>
+    <string name="editor_option_b_hint">Вариант Б</string>
+    <string name="editor_option_c_hint">Вариант В</string>
+    <string name="editor_option_d_hint">Вариант Г</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="btn_cancel">Отмена</string>
+
+    <!-- Общие -->
+    <string name="loading">Загрузка…</string>
+    <string name="error_empty_fields">Заполните все поля</string>
+</resources>

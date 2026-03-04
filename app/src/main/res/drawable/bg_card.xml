@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Фон для карточек и панелей.
+    Белый фон с лёгкой тенью через elevation (задаётся на уровне View),
+    скруглённые углы 12dp.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#FFFFFF" />
+    <corners android:radius="12dp" />
+    <stroke android:width="1dp" android:color="#E0E0E0" />
+</shape>

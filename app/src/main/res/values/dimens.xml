@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Отступы -->
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+
+    <!-- Радиус скругления углов -->
+    <dimen name="corner_radius_small">4dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_large">12dp</dimen>
+    <dimen name="corner_radius_button">8dp</dimen>
+
+    <!-- Размеры текста -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_body">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_title">22sp</dimen>
+    <dimen name="text_size_headline">28sp</dimen>
+
+    <!-- Высота кнопок -->
+    <dimen name="button_height">52dp</dimen>
+    <dimen name="button_height_small">40dp</dimen>
+
+    <!-- Карточки -->
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+
+    <!-- Таймер-прогрессбар -->
+    <dimen name="progress_height">8dp</dimen>
+
+    <!-- Размер QR-кода на экране -->
+    <dimen name="qr_code_size">240dp</dimen>
+</resources>
