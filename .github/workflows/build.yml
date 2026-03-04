@@ -1,132 +1,59 @@
-name: Build and Release APK
+name: Build APK
 
-# Р—Р°РїСѓСЃРєР°РµС‚СЃСЏ РїСЂРё РєР°Р¶РґРѕРј push РІ РІРµС‚РєСѓ main, Р° С‚Р°РєР¶Рµ РІСЂСѓС‡РЅСѓСЋ С‡РµСЂРµР· РєРЅРѕРїРєСѓ РІ GitHub
 on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
-    # РџРѕР·РІРѕР»СЏРµС‚ Р·Р°РїСѓСЃС‚РёС‚СЊ СЃР±РѕСЂРєСѓ РІСЂСѓС‡РЅСѓСЋ РёР· РІРєР»Р°РґРєРё Actions в†’ Run workflow
 
 jobs:
   build:
-    name: Build signed APK
     runs-on: ubuntu-latest
-
     steps:
-      # в”Ђв”Ђ 1. РљР»РѕРЅРёСЂСѓРµРј СЂРµРїРѕР·РёС‚РѕСЂРёР№ в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      - name: Checkout repository
+
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # в”Ђв”Ђ 2. РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј Java 17 (С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ Android Gradle Plugin 8+) в”Ђв”Ђ
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
-      # в”Ђв”Ђ 3. Р”Р°С‘Рј РїСЂР°РІР° РЅР° Р·Р°РїСѓСЃРє gradlew в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      - name: Grant execute permission for gradlew
+      - name: Download gradle wrapper jar
+        run: |
+          mkdir -p gradle/wrapper
+          curl -L "https://github.com/gradle/gradle/raw/v8.4.0/gradle/wrapper/gradle-wrapper.jar" \
+            -o gradle/wrapper/gradle-wrapper.jar || true
+
+      - name: Make gradlew executable
         run: chmod +x gradlew
 
-      # в”Ђв”Ђ 4. Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј keystore РёР· Secret СЂРµРїРѕР·РёС‚РѕСЂРёСЏ в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      #
-      # РљРђРљ Р”РћР‘РђР’РРўР¬ KEYSTORE Р’ GITHUB SECRETS (РґРµР»Р°РµС‚СЃСЏ 1 СЂР°Р·):
-      #
-      # РЁР°Рі A. РЎРіРµРЅРµСЂРёСЂСѓР№С‚Рµ keystore Р»РѕРєР°Р»СЊРЅРѕ (РёР»Рё РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РіРѕС‚РѕРІС‹Р№):
-      #   keytool -genkeypair -v -keystore physics_release.jks \
-      #     -alias physics_key -keyalg RSA -keysize 2048 -validity 10000
-      #
-      # РЁР°Рі B. Р—Р°РєРѕРґРёСЂСѓР№С‚Рµ keystore РІ base64:
-      #   base64 -w 0 physics_release.jks > keystore_b64.txt
-      #
-      # РЁР°Рі C. Р’ GitHub в†’ Settings в†’ Secrets в†’ Actions в†’ New repository secret:
-      #   KEYSTORE_BASE64   = СЃРѕРґРµСЂР¶РёРјРѕРµ keystore_b64.txt
-      #   KEYSTORE_PASSWORD = РїР°СЂРѕР»СЊ keystore (Р·Р°РґР°РІР°Р»Рё РїСЂРё РіРµРЅРµСЂР°С†РёРё)
-      #   KEY_ALIAS         = physics_key
-      #   KEY_PASSWORD      = РїР°СЂРѕР»СЊ РєР»СЋС‡Р° (Р·Р°РґР°РІР°Р»Рё РїСЂРё РіРµРЅРµСЂР°С†РёРё)
-      #
-      # Р’РђР–РќРћ: Р•СЃР»Рё СЃРµРєСЂРµС‚С‹ РќР• РґРѕР±Р°РІР»РµРЅС‹, СЃР±РѕСЂРєР° РїСЂРѕРёР·РѕР№РґС‘С‚ Р±РµР· РїРѕРґРїРёСЃРё (debug).
-      # APK Р±РµР· РїРѕРґРїРёСЃРё РЅРµР»СЊР·СЏ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РЅР° Android вЂ” РґРѕР±Р°РІСЊС‚Рµ СЃРµРєСЂРµС‚С‹!
-      #
-      - name: Decode keystore from base64
-        if: ${{ env.KEYSTORE_BASE64 != '' }}
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          echo "$KEYSTORE_BASE64" | base64 --decode > app/physics_release.jks
-          echo "Keystore decoded successfully"
+      - name: Decode keystore
+        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release.jks
 
-      # в”Ђв”Ђ 5. РЎРѕР±РёСЂР°РµРј release APK в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      - name: Build release APK
+      - name: Build release APK (with keystore)
+        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
         env:
-          KEYSTORE_FILE: ${{ github.workspace }}/app/physics_release.jks
+          KEYSTORE_FILE: ${{ github.workspace }}/app/release.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        run: ./gradlew assembleRelease --no-daemon
 
-      # в”Ђв”Ђ 6. Р•СЃР»Рё РїРѕРґРїРёСЃРё РЅРµС‚ вЂ” СЃРѕР±РёСЂР°РµРј debug РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      - name: Build debug APK (fallback if no keystore)
-        if: ${{ env.KEYSTORE_BASE64 == '' }}
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+      - name: Build debug APK (no keystore)
+        if: ${{ secrets.KEYSTORE_BASE64 == '' }}
         run: ./gradlew assembleDebug --no-daemon
 
-      # в”Ђв”Ђ 7. РџРµСЂРµРёРјРµРЅРѕРІС‹РІР°РµРј APK РІ СѓРґРѕР±РЅРѕРµ РёРјСЏ СЃ РІРµСЂСЃРёРµР№ в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      - name: Rename APK
+      - name: Collect APK files
         run: |
-          VERSION=$(grep -oP "versionName \"\K[^\"]*" app/build.gradle || echo "1.0")
-          # Release APK
-          if [ -f "app/build/outputs/apk/release/app-release.apk" ]; then
-            cp app/build/outputs/apk/release/app-release.apk \
-               app/build/outputs/apk/release/PhysicsTest-v${VERSION}-release.apk
-          fi
-          # Debug APK
-          if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
-            cp app/build/outputs/apk/debug/app-debug.apk \
-               app/build/outputs/apk/debug/PhysicsTest-v${VERSION}-debug.apk
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          mkdir -p output_apk
+          find app/build/outputs/apk -name "*.apk" -exec cp {} output_apk/ \;
+          ls -lh output_apk/
 
-      # в”Ђв”Ђ 8. Р—Р°РіСЂСѓР¶Р°РµРј APK РєР°Рє Р°СЂС‚РµС„Р°РєС‚ (РґРѕСЃС‚СѓРїРµРЅ 90 РґРЅРµР№) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      - name: Upload Release APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: PhysicsTest-APK-${{ env.VERSION }}
-          path: |
-            app/build/outputs/apk/release/*.apk
-            app/build/outputs/apk/debug/*.apk
+          name: PhysicsTest-APK
+          path: output_apk/*.apk
           retention-days: 90
-
-      # в”Ђв”Ђ 9. РЎРѕР·РґР°С‘Рј GitHub Release СЃ РїСЂРёРєСЂРµРїР»С‘РЅРЅС‹Рј APK в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-      # Release СЃРѕР·РґР°С‘С‚СЃСЏ С‚РѕР»СЊРєРѕ РїСЂРё push СЃ С‚РµРіРѕРј РІРёРґР° v1.0, v1.1 Рё С‚.Рґ.
-      # РљРѕРјР°РЅРґР° РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚РµРіР°: git tag v1.0 && git push origin v1.0
-      - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            app/build/outputs/apk/release/PhysicsTest-v*-release.apk
-            app/build/outputs/apk/debug/PhysicsTest-v*-debug.apk
-          name: "PhysicsTest v${{ env.VERSION }}"
-          body: |
-            ## Р¤РёР·РёРєР°: РўРµСЃС‚ вЂ” v${{ env.VERSION }}
-
-            ### РЈСЃС‚Р°РЅРѕРІРєР° РЅР° Android-СѓСЃС‚СЂРѕР№СЃС‚РІРѕ:
-            1. РЎРєР°С‡Р°Р№С‚Рµ С„Р°Р№Р» `PhysicsTest-v*-release.apk` (РїРѕРґРїРёСЃР°РЅРЅС‹Р№)
-            2. РџРµСЂРµР№РґРёС‚Рµ РІ **РќР°СЃС‚СЂРѕР№РєРё в†’ Р‘РµР·РѕРїР°СЃРЅРѕСЃС‚СЊ в†’ РЈСЃС‚Р°РЅРѕРІРєР° РёР· РЅРµРёР·РІРµСЃС‚РЅС‹С… РёСЃС‚РѕС‡РЅРёРєРѕРІ** в†’ РІРєР»СЋС‡РёС‚СЊ
-            3. РћС‚РєСЂРѕР№С‚Рµ СЃРєР°С‡Р°РЅРЅС‹Р№ APK вЂ” РЅР°Р¶РјРёС‚Рµ В«РЈСЃС‚Р°РЅРѕРІРёС‚СЊВ»
-            4. Р“РѕС‚РѕРІРѕ! РџСЂРё РїРµСЂРІРѕРј Р·Р°РїСѓСЃРєРµ СЃРѕР·РґР°Р№С‚Рµ РїР°СЂРѕР»СЊ СЂРµРїРµС‚РёС‚РѕСЂР°.
-
-            ### Р§С‚Рѕ РІРЅСѓС‚СЂРё:
-            - РўРµСЃС‚С‹ РїРѕ С„РёР·РёРєРµ РґР»СЏ 7вЂ“11 РєР»Р°СЃСЃРѕРІ (60+ РІРѕРїСЂРѕСЃРѕРІ РїРѕ Р¤Р“РћРЎ)
-            - Р”РІРѕР№РЅС‹Рµ С‚Р°Р№РјРµСЂС‹: 30 РјРёРЅ РЅР° С‚РµСЃС‚ + 60 СЃРµРє РЅР° РІРѕРїСЂРѕСЃ
-            - Р РµР¶РёРј СЂРµРїРµС‚РёС‚РѕСЂР° СЃ РїСЂРѕСЃРјРѕС‚СЂРѕРј СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ Рё СЂРµРґР°РєС‚РѕСЂРѕРј РІРѕРїСЂРѕСЃРѕРІ
-            - QR-РєРѕРґС‹ Рё 6-Р·РЅР°С‡РЅС‹Рµ РєРѕРґС‹ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ
-            - 100% РѕС„Р»Р°Р№РЅ, РґР°РЅРЅС‹Рµ РЅРµ РїРµСЂРµРґР°СЋС‚СЃСЏ РЅР° СЃРµСЂРІРµСЂС‹
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
